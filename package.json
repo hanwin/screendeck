@@ -1,0 +1,49 @@
+{
+    "name": "screendeck",
+    "version": "1.0.0",
+    "main": "dist/main.js",
+    "scripts": {
+        "start": "yarn build && electron .",
+        "build": "tsc && electron-builder",
+        "dev": "concurrently \"tsc -w\" \"wait-on dist/main.js && electron .\"",
+        "format": "prettier -w .",
+        "lint:raw": "eslint --ext .ts --ext .js --ignore-pattern dist --ignore-pattern pkg",
+        "lint": "yarn lint:raw ."
+    },
+    "build": {
+        "appId": "com.josephadams.screendeck",
+        "productName": "screendeck",
+        "files": [
+            "dist/**/*",
+            "public/**/*",
+            "assets/**/*"
+        ],
+        "mac": {
+            "target": "dmg",
+            "extendInfo": {
+                "NSApplicationSupportsSecureRestorableState": true
+            }
+        },
+        "win": {
+            "target": "nsis"
+        },
+        "linux": {
+            "target": "AppImage"
+        }
+    },
+    "dependencies": {
+        "electron": "^25.0.0",
+        "electron-store": "^8.0.0",
+        "short-uuid": "^5.2.0"
+    },
+    "devDependencies": {
+        "@types/electron": "^23.0.0",
+        "@types/node": "^18.0.0",
+        "concurrently": "^8.0.0",
+        "electron-builder": "^24.0.0",
+        "prettier": "^3.3.3",
+        "ts-node": "^10.0.0",
+        "typescript": "^5.0.0",
+        "wait-on": "^7.0.0"
+    }
+}
