@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events'
 import net, { Socket } from 'net'
 
-interface KeyEvent {
+export interface KeyEvent {
     deviceId?: string
     key?: number
     type?: string
@@ -58,6 +58,10 @@ export class Satellite extends EventEmitter {
 
     public isConnected = false
 
+	public getIP() {
+		return this.ip
+	}
+
     public connect() {
         this.socket = new net.Socket()
 
@@ -89,9 +93,10 @@ export class Satellite extends EventEmitter {
         this.emit('disconnected')
     }
 
-    public changeKeys(keysTotal: number, keysPerRow: number) {
+    public changeKeys(keysTotal: number, keysPerRow: number, bitmaps: boolean | string | number) {
         this.keysTotal = keysTotal
         this.keysPerRow = keysPerRow
+		this.bitmaps = bitmaps
         this.addDevice()
     }
 
@@ -145,7 +150,7 @@ export class Satellite extends EventEmitter {
         }
 
         this.sendCommand(addDeviceCmd)
-        console.log(addDeviceCmd)
+		console.log('Device Added:', addDeviceCmd)
     }
 
     public removeDevice() {
@@ -219,6 +224,7 @@ export class Satellite extends EventEmitter {
 
                         if (property.toUpperCase() === 'APIVERSION') {
                             this.apiVersion = value
+							console.log('API Version:', this.apiVersion)
                         }
                     }
 
