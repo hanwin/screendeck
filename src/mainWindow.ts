@@ -26,26 +26,29 @@ export function createMainWindow() {
 		global.mainWindow = null
 	}
 
-		global.mainWindow = new BrowserWindow({
-			width: width,
-			height: height,
-			x: screenWidth - width - 20,
-			y: 20,
-			transparent: true,
-			frame: false,
-			alwaysOnTop: alwaysOnTop,
-			resizable: false,
-			skipTaskbar: true,
-			movable: movable,
-			webPreferences: {
-				preload: path.join(__dirname, 'preload.js'),
-				contextIsolation: true, // Enable context isolation for security
-				nodeIntegration: false, // Disable nodeIntegration for security
-			},
-		})
-	
-		global.mainWindow.loadFile(path.join(__dirname, '../public/index.html'))
-		global.mainWindow.setHasShadow(false)
+	global.mainWindow = new BrowserWindow({
+		width: width,
+		height: height,
+		x: screenWidth - width - 20,
+		y: 20,
+		transparent: true,
+		frame: false,
+		alwaysOnTop: alwaysOnTop,
+		resizable: false,
+		skipTaskbar: true,
+		movable: movable,
+		webPreferences: {
+			preload: path.join(__dirname, 'preload.js'),
+			contextIsolation: true, // Enable context isolation for security
+			nodeIntegration: false, // Disable nodeIntegration for security
+		},
+	})
+
+	global.mainWindow.loadFile(path.join(__dirname, '../public/index.html'))
+	global.mainWindow.setHasShadow(false)
+
+	//show dev tools
+	//global.mainWindow.webContents.openDevTools()
 
     // Register global shortcuts for each keypad button
     // Check settings and register global hotkeys if enabled
@@ -75,8 +78,9 @@ export function createMainWindow() {
 }
 
 function calculateWindowSize(keysTotal: number, keysPerRow: number) {
-    const KEY_WIDTH = 72
-    const KEY_HEIGHT = 72
+	const bitmapSize = store.get('bitmapSize', 72)
+    const KEY_WIDTH = bitmapSize
+    const KEY_HEIGHT = bitmapSize
     const PADDING = 20
     const GAP = 10
     const rows = Math.ceil(keysTotal / keysPerRow)

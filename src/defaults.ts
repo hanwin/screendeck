@@ -5,6 +5,7 @@ export const defaultSettings = {
     companionPort: 16622, // Default satellite port for companion
     keysTotal: 6, // Default total keys for companion
     keysPerRow: 1, // Default keys per row for companion
+	bitmapSize: 72, // Default bitmap size
     alwaysOnTop: true, // Default always on top setting
     movable: false, // Default setting for whether the window is movable
     enableHotKeys: false, //Default setting for enabling hotkeys
