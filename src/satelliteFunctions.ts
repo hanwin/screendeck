@@ -3,12 +3,14 @@ declare global {
 }
 
 import ShortUniqueId from 'short-uuid'
-import { Satellite } from './satellite'
+import { KeyEvent, Satellite } from './satellite'
 import Store from 'electron-store'
 import { defaultSettings } from './defaults'
 import { showNotification } from './notification'
 
 const store = new Store({ defaults: defaultSettings })
+
+let keyQueue: KeyEvent[] = []
 
 export function createSatellite(notificationShow: boolean = true) {
     const companionIP: string = store.get('companionIP', '127.0.0.1')
@@ -23,6 +25,7 @@ export function createSatellite(notificationShow: boolean = true) {
 
     const keysTotal = store.get('keysTotal', 6)
     const keysPerRow = store.get('keysPerRow', 1)
+	const bitmapSize = store.get('bitmapSize', 72)
 
     showNotification(
         'Connecting to Companion',
@@ -36,7 +39,7 @@ export function createSatellite(notificationShow: boolean = true) {
         companionPort,
         keysTotal,
         keysPerRow,
-        72
+        bitmapSize
     )
 
     global.satellite.on('connected', () => {
@@ -50,9 +53,7 @@ export function createSatellite(notificationShow: boolean = true) {
     })
 
     global.satellite.on('keyEvent', (keyEvent) => {
-        if (global.mainWindow) {
-            global.mainWindow.webContents.send('keyEvent', keyEvent)
-        }
+       addToKeyQueue(keyEvent)
     })
 
     global.satellite.on('brightness', (brightness) => {
@@ -86,6 +87,31 @@ export function createSatellite(notificationShow: boolean = true) {
     })
 
     global.satellite.connect()
+}
+
+function addToKeyQueue(keyObj: KeyEvent) {
+	keyQueue.push(keyObj)
+	//implement a queue so that we can process multiple key updates one at a time
+	if (keyQueue.length === 1) {
+		processKeyQueue()
+	}
+}
+
+function processKeyQueue() {
+	//console.log('Processing key queue. Length:', keyQueue.length)
+	if (keyQueue.length > 0) {
+        const keyObj: KeyEvent = keyQueue.shift() as KeyEvent;
+		processKey(keyObj)
+	}
+}
+
+function processKey(keyObj: KeyEvent) {
+	if (global.mainWindow) {
+		global.mainWindow.webContents.send('keyEvent', keyObj)
+	}
+
+	//process the next key in the queue
+	processKeyQueue()
 }
 
 export function closeSatellite() {
