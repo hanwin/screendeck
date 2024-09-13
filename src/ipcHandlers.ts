@@ -12,15 +12,27 @@ export function initializeIpcHandlers() {
     ipcMain.handle('reloadWindow', () => {
 		let keysTotal = store.get('keysTotal', 6)
 		let keysPerRow = store.get('keysPerRow', 1)
+		let bitmapSize = store.get('bitmapSize', 72)
 
 		createMainWindow()
-	
-		//wait 800ms before connecting to the satellite
-		setTimeout(() => {
-			global.satellite?.removeDevice()
-			global.satellite?.changeKeys(keysTotal, keysPerRow)
-			global.satellite?.addDevice()
-		}, 800)
+
+		let companionIP = store.get('companionIP', '127.0.0.1')
+		let currentIP = global.satellite?.getIP()
+
+		if (currentIP !== companionIP) { // If the IP address has changed
+			closeSatellite()
+			setTimeout(() => {
+				createSatellite(false)
+			}, 800)
+		}
+		else {
+			//wait 800ms before connecting to the satellite
+			setTimeout(() => {
+				global.satellite?.removeDevice()
+				global.satellite?.changeKeys(keysTotal, keysPerRow, bitmapSize)
+				global.satellite?.addDevice()
+			}, 800)
+		}
     })
 
     // Handle keyDown event from renderer or other sources
@@ -35,7 +47,7 @@ export function initializeIpcHandlers() {
     ipcMain.handle('keyUp', (_, keyObj) => {
         if (satellite && typeof satellite.sendKeyUp === 'function') {
             let keyNumber: number = parseInt(keyObj.key) - 1
-            satellite.sendKeyUp(keyNumber) // Call keyUp method on the Satellite instance
+            satellite.sendKeyUp(keyNumber)
         }
     })
 
@@ -44,7 +56,7 @@ export function initializeIpcHandlers() {
         if (satellite && typeof satellite.sendKeyRotate === 'function') {
             let keyNumber: number = parseInt(keyObj.key) - 1
             let direction: number = parseInt(keyObj.direction)
-            satellite.sendKeyRotate(keyNumber, direction) // Call keyRotate method on the Satellite instance
+            satellite.sendKeyRotate(keyNumber, direction)
         }
     })
 
