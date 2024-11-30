@@ -21,41 +21,42 @@ export function createMainWindow() {
     const primaryDisplay = screen.getPrimaryDisplay()
     const { width: screenWidth } = primaryDisplay.workAreaSize
 
-	if (global.mainWindow) {
-		global.mainWindow.close()
-		global.mainWindow = null
-	}
+    if (global.mainWindow) {
+        global.mainWindow.close()
+        global.mainWindow = null
+    }
 
-	global.mainWindow = new BrowserWindow({
-		width: width,
-		height: height,
-		x: screenWidth - width - 20,
-		y: 20,
-		transparent: true,
-		frame: false,
-		alwaysOnTop: alwaysOnTop,
-		resizable: false,
-		skipTaskbar: true,
-		movable: movable,
-		webPreferences: {
-			preload: path.join(__dirname, 'preload.js'),
-			contextIsolation: true, // Enable context isolation for security
-			nodeIntegration: false, // Disable nodeIntegration for security
-		},
-	})
+    global.mainWindow = new BrowserWindow({
+        width: width,
+        height: height,
+        x: screenWidth - width - 20,
+        y: 20,
+        transparent: true,
+        frame: false,
+        alwaysOnTop: alwaysOnTop,
+        resizable: false,
+        skipTaskbar: true,
+        movable: movable,
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js'),
+            contextIsolation: true, // Enable context isolation for security
+            nodeIntegration: false, // Disable nodeIntegration for security
+        },
+    })
 
-	global.mainWindow.loadFile(path.join(__dirname, '../public/index.html'))
-	global.mainWindow.setHasShadow(false)
+    global.mainWindow.loadFile(path.join(__dirname, '../public/index.html'))
+    global.mainWindow.setHasShadow(false)
 
-	//show dev tools
-	//global.mainWindow.webContents.openDevTools()
+    //show dev tools
+    //global.mainWindow.webContents.openDevTools()
 
     // Register global shortcuts for each keypad button
     // Check settings and register global hotkeys if enabled
     if (enableHotKeys) {
         globalShortcut.unregisterAll() // Unregister all global shortcuts
         registerGlobalHotkeys(keysTotal) // Pass the total number of keys
-    }1
+    }
+    1
 
     //hide the window until satellite is connected
     global.mainWindow?.hide()
@@ -78,7 +79,7 @@ export function createMainWindow() {
 }
 
 function calculateWindowSize(keysTotal: number, keysPerRow: number) {
-	const bitmapSize = store.get('bitmapSize', 72)
+    const bitmapSize = store.get('bitmapSize', 72)
     const KEY_WIDTH = bitmapSize
     const KEY_HEIGHT = bitmapSize
     const PADDING = 20
@@ -112,7 +113,10 @@ function registerGlobalHotkeys(keysTotal: number) {
         const registered = globalShortcut.register(key, () => {
             // Send an event to the renderer to simulate a button press
             if (global.mainWindow) {
-                global.mainWindow.webContents.send('globalHotkeyPress', buttonIndex)
+                global.mainWindow.webContents.send(
+                    'globalHotkeyPress',
+                    buttonIndex
+                )
             }
         })
 

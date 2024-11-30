@@ -25,7 +25,7 @@ export function createSatellite(notificationShow: boolean = true) {
 
     const keysTotal = store.get('keysTotal', 6)
     const keysPerRow = store.get('keysPerRow', 1)
-	const bitmapSize = store.get('bitmapSize', 72)
+    const bitmapSize = store.get('bitmapSize', 72)
 
     showNotification(
         'Connecting to Companion',
@@ -43,17 +43,17 @@ export function createSatellite(notificationShow: boolean = true) {
     )
 
     global.satellite.on('connected', () => {
-		if (notificationShow) {
-			showNotification(
-				'Satellite Connected',
-				`Connected to Companion IP: ${companionIP}`
-			)
-		}
+        if (notificationShow) {
+            showNotification(
+                'Satellite Connected',
+                `Connected to Companion IP: ${companionIP}`
+            )
+        }
         global.mainWindow?.show() //show the window when satellite is connected
     })
 
     global.satellite.on('keyEvent', (keyEvent) => {
-       addToKeyQueue(keyEvent)
+        addToKeyQueue(keyEvent)
     })
 
     global.satellite.on('brightness', (brightness) => {
@@ -90,31 +90,31 @@ export function createSatellite(notificationShow: boolean = true) {
 }
 
 function addToKeyQueue(keyObj: KeyEvent) {
-	keyQueue.push(keyObj)
-	//implement a queue so that we can process multiple key updates one at a time
-	if (keyQueue.length === 1) {
-		processKeyQueue()
-	}
+    keyQueue.push(keyObj)
+    //implement a queue so that we can process multiple key updates one at a time
+    if (keyQueue.length === 1) {
+        processKeyQueue()
+    }
 }
 
 function processKeyQueue() {
-	//console.log('Processing key queue. Length:', keyQueue.length)
-	if (keyQueue.length > 0) {
-        const keyObj: KeyEvent = keyQueue.shift() as KeyEvent;
-		processKey(keyObj)
-	}
+    //console.log('Processing key queue. Length:', keyQueue.length)
+    if (keyQueue.length > 0) {
+        const keyObj: KeyEvent = keyQueue.shift() as KeyEvent
+        processKey(keyObj)
+    }
 }
 
 function processKey(keyObj: KeyEvent) {
-	if (global.mainWindow) {
-		global.mainWindow.webContents.send('keyEvent', keyObj)
-	}
+    if (global.mainWindow) {
+        global.mainWindow.webContents.send('keyEvent', keyObj)
+    }
 
-	//process the next key in the queue
-	processKeyQueue()
+    //process the next key in the queue
+    processKeyQueue()
 }
 
 export function closeSatellite() {
     global.satellite?.disconnect()
-	global.satellite = null
+    global.satellite = null
 }

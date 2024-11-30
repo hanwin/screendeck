@@ -10,29 +10,29 @@ const store = new Store({ defaults: defaultSettings })
 export function initializeIpcHandlers() {
     // Handle reloading the main window
     ipcMain.handle('reloadWindow', () => {
-		let keysTotal = store.get('keysTotal', 6)
-		let keysPerRow = store.get('keysPerRow', 1)
-		let bitmapSize = store.get('bitmapSize', 72)
+        let keysTotal = store.get('keysTotal', 6)
+        let keysPerRow = store.get('keysPerRow', 1)
+        let bitmapSize = store.get('bitmapSize', 72)
 
-		createMainWindow()
+        createMainWindow()
 
-		let companionIP = store.get('companionIP', '127.0.0.1')
-		let currentIP = global.satellite?.getIP()
+        let companionIP = store.get('companionIP', '127.0.0.1')
+        let currentIP = global.satellite?.getIP()
 
-		if (currentIP !== companionIP) { // If the IP address has changed
-			closeSatellite()
-			setTimeout(() => {
-				createSatellite(false)
-			}, 800)
-		}
-		else {
-			//wait 800ms before connecting to the satellite
-			setTimeout(() => {
-				global.satellite?.removeDevice()
-				global.satellite?.changeKeys(keysTotal, keysPerRow, bitmapSize)
-				global.satellite?.addDevice()
-			}, 800)
-		}
+        if (currentIP !== companionIP) {
+            // If the IP address has changed
+            closeSatellite()
+            setTimeout(() => {
+                createSatellite(false)
+            }, 800)
+        } else {
+            //wait 800ms before connecting to the satellite
+            setTimeout(() => {
+                global.satellite?.removeDevice()
+                global.satellite?.changeKeys(keysTotal, keysPerRow, bitmapSize)
+                global.satellite?.addDevice()
+            }, 800)
+        }
     })
 
     // Handle keyDown event from renderer or other sources

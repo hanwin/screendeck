@@ -6,7 +6,7 @@ window.electronAPI.getSettings().then((settings) => {
         settings.companionPort || 16622
     document.getElementById('keysTotal').value = settings.keysTotal || 6
     document.getElementById('keysPerRow').value = settings.keysPerRow || 1
-	document.getElementById('bitmapSize').value = settings.bitmapSize || 72
+    document.getElementById('bitmapSize').value = settings.bitmapSize || 72
     document.getElementById('alwaysOnTop').checked =
         settings.alwaysOnTop || false
     document.getElementById('movable').checked = settings.movable || false
@@ -26,7 +26,7 @@ document.getElementById('settingsForm').addEventListener('submit', (event) => {
         ),
         keysTotal: parseInt(document.getElementById('keysTotal').value, 10),
         keysPerRow: parseInt(document.getElementById('keysPerRow').value, 10),
-		bitmapSize: parseInt(document.getElementById('bitmapSize').value, 10),
+        bitmapSize: parseInt(document.getElementById('bitmapSize').value, 10),
         alwaysOnTop: document.getElementById('alwaysOnTop').checked,
         movable: document.getElementById('movable').checked,
         enableHotKeys: document.getElementById('enableHotKeys').checked,
