@@ -30,63 +30,63 @@ window.electronAPI.getSettings().then((settings) => {
         keyElements.push(key)
     }
 
-	// Key queue to handle multiple key updates
-	let keyQueue = []
+    // Key queue to handle multiple key updates
+    let keyQueue = []
 
-	function addToKeyQueue(keyObj) {
-		keyQueue.push(keyObj)
-		//implement a queue so that we can process multiple key updates one at a time
-		if (keyQueue.length === 1) {
-			processKeyQueue()
-		}
-	}
+    function addToKeyQueue(keyObj) {
+        keyQueue.push(keyObj)
+        //implement a queue so that we can process multiple key updates one at a time
+        if (keyQueue.length === 1) {
+            processKeyQueue()
+        }
+    }
 
-	function processKeyQueue() {
-		console.log('Processing key queue. Length:', keyQueue.length)
-		if (keyQueue.length > 0) {
-			const keyObj = keyQueue.shift()
-			processKey(keyObj)
-		}
-	}
+    function processKeyQueue() {
+        console.log('Processing key queue. Length:', keyQueue.length)
+        if (keyQueue.length > 0) {
+            const keyObj = keyQueue.shift()
+            processKey(keyObj)
+        }
+    }
 
-	function processKey(keyObj) {
-		const { key, bitmap, color, textColor, text, fontSize } = keyObj
-		const keyIndex = key
+    function processKey(keyObj) {
+        const { key, bitmap, color, textColor, text, fontSize } = keyObj
+        const keyIndex = key
 
-		// Check if the key index is valid
-		if (keyIndex >= 0 && keyIndex < keysTotal) {
-			const keyElement = keyElements[keyIndex]
-			const textSpan = keyElement.querySelector('span')
+        // Check if the key index is valid
+        if (keyIndex >= 0 && keyIndex < keysTotal) {
+            const keyElement = keyElements[keyIndex]
+            const textSpan = keyElement.querySelector('span')
 
-			// Update the key image (bitmap)
-			if (bitmap) {
-				renderBitmap(keyElement, bitmap)
-			} else {
-				// Update the key background color
-				if (color) {
-					keyElement.style.backgroundColor = color
-				}
+            // Update the key image (bitmap)
+            if (bitmap) {
+                renderBitmap(keyElement, bitmap)
+            } else {
+                // Update the key background color
+                if (color) {
+                    keyElement.style.backgroundColor = color
+                }
 
-				// Decode base64 text and update the key text
-				if (text) {
-					const decodedText = atob(text) // Decode the base64-encoded text
-					textSpan.textContent = decodedText
-				}
+                // Decode base64 text and update the key text
+                if (text) {
+                    const decodedText = atob(text) // Decode the base64-encoded text
+                    textSpan.textContent = decodedText
+                }
 
-				// Update the text color
-				if (textColor) {
-					textSpan.style.color = textColor
-				}
+                // Update the text color
+                if (textColor) {
+                    textSpan.style.color = textColor
+                }
 
-				// Update the font size
-				if (fontSize) {
-					textSpan.style.fontSize = fontSize
-				}
-			}
-		}
+                // Update the font size
+                if (fontSize) {
+                    textSpan.style.fontSize = fontSize
+                }
+            }
+        }
 
-		processKeyQueue()
-	}
+        processKeyQueue()
+    }
 
     // Close button event listener
     document.getElementById('closeButton').addEventListener('click', () => {
@@ -111,7 +111,7 @@ window.electronAPI.getSettings().then((settings) => {
 
     // Listen for keyEvent from the main process
     window.electronAPI.onKeyEvent((event, keyObj) => {
-        addToKeyQueue(keyObj);
+        addToKeyQueue(keyObj)
     })
 
     // Listen for brightness adjustments
