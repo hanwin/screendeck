@@ -58,17 +58,30 @@ export class Satellite extends EventEmitter {
 
     public isConnected = false
 
-	public getIP() {
-		return this.ip
-	}
+    public getIP() {
+        return this.ip
+    }
 
     public connect() {
         this.socket = new net.Socket()
 
         this.socket.connect(this.port, this.ip, () => {})
 
-        this.socket.on('data', (data) => {
-            this.processData(data)
+        let receiveBuffer = ''
+
+        this.socket.on('data', (chunk) => {
+            receiveBuffer += chunk.toString()
+
+            let lineEnd
+            while ((lineEnd = receiveBuffer.indexOf('\n')) !== -1) {
+                const line = receiveBuffer.slice(0, lineEnd).trim() // Extract and trim the line
+                receiveBuffer = receiveBuffer.slice(lineEnd + 1) // Update the buffer
+                try {
+                    this.processData(line) // Process the line
+                } catch (error) {
+                    console.error(error)
+                }
+            }
         })
 
         this.socket.on('error', (error) => {
@@ -93,10 +106,14 @@ export class Satellite extends EventEmitter {
         this.emit('disconnected')
     }
 
-    public changeKeys(keysTotal: number, keysPerRow: number, bitmaps: boolean | string | number) {
+    public changeKeys(
+        keysTotal: number,
+        keysPerRow: number,
+        bitmaps: boolean | string | number
+    ) {
         this.keysTotal = keysTotal
         this.keysPerRow = keysPerRow
-		this.bitmaps = bitmaps
+        this.bitmaps = bitmaps
         this.addDevice()
     }
 
@@ -150,7 +167,7 @@ export class Satellite extends EventEmitter {
         }
 
         this.sendCommand(addDeviceCmd)
-		console.log('Device Added:', addDeviceCmd)
+        console.log('Device Added:', addDeviceCmd)
     }
 
     public removeDevice() {
@@ -206,9 +223,9 @@ export class Satellite extends EventEmitter {
         )
     }
 
-    private processData(data: Buffer) {
+    private processData(data: string) {
         try {
-            const str_raw = data.toString().trim()
+            const str_raw = data.trim()
             const str_split = str_raw.split('\n')
 
             for (const str of str_split) {
@@ -224,7 +241,7 @@ export class Satellite extends EventEmitter {
 
                         if (property.toUpperCase() === 'APIVERSION') {
                             this.apiVersion = value
-							console.log('API Version:', this.apiVersion)
+                            console.log('API Version:', this.apiVersion)
                         }
                     }
 
@@ -260,7 +277,7 @@ export class Satellite extends EventEmitter {
                                 keyObj.type = value
                                 break
                             case 'BITMAP':
-                                keyObj.bitmap = value.toString()
+                                keyObj.bitmap = value
                                 break
                             case 'COLOR':
                                 keyObj.color = value
