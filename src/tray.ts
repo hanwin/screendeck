@@ -48,8 +48,8 @@ function updateTrayMenu() {
         },
     ] as Electron.MenuItemConstructorOptions[]
 
-    // Add "Show Keypad" option if alwaysOnTop is false
-    if (!alwaysOnTop || global.mainWindow?.isVisible() === false) {
+    // Add "Show Keypad" option if alwaysOnTop is false, or if the main window is not visible, but only if we are connected to Companion
+    if ((!alwaysOnTop || global.mainWindow?.isVisible() === false) && global.satellite?.isConnected) {
         contextMenuTemplate.splice(3, 0, {
             label: 'Show Keypad',
             type: 'normal',

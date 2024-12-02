@@ -7,6 +7,7 @@ import { KeyEvent, Satellite } from './satellite'
 import Store from 'electron-store'
 import { defaultSettings } from './defaults'
 import { showNotification } from './notification'
+import { updateTrayMenu } from './tray'
 
 const store = new Store({ defaults: defaultSettings })
 
@@ -50,6 +51,7 @@ export function createSatellite(notificationShow: boolean = true) {
             )
         }
         global.mainWindow?.show() //show the window when satellite is connected
+		updateTrayMenu()
     })
 
     global.satellite.on('keyEvent', (keyEvent) => {
