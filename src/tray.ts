@@ -29,6 +29,8 @@ function updateTrayMenu() {
     let contextMenuTemplate = [
         { label: `ScreenDeck Version: ${version}`, enabled: false },
         { label: `Companion IP: ${companionIP}`, enabled: false },
+		{ label: `Companion Version: ${global.satellite?.companionVersion}`, enabled: false },
+		{ label: `Satellite API Version: ${global.satellite?.apiVersion}`, enabled: false },
         { label: `Device ID: ${deviceId}`, enabled: false },
         { type: 'separator' },
         {
@@ -50,7 +52,7 @@ function updateTrayMenu() {
 
     // Add "Show Keypad" option if alwaysOnTop is false, or if the main window is not visible, but only if we are connected to Companion
     if ((!alwaysOnTop || global.mainWindow?.isVisible() === false) && global.satellite?.isConnected) {
-        contextMenuTemplate.splice(3, 0, {
+        contextMenuTemplate.splice(5, 0, {
             label: 'Show Keypad',
             type: 'normal',
             click: () => {
