@@ -93,11 +93,6 @@ window.electronAPI.getSettings().then((settings) => {
         window.electronAPI.invoke('closeKeypad')
     })
 
-    // Listen for global hotkey press events from the main process
-    window.electronAPI.onGlobalHotkeyPress((event, buttonIndex) => {
-        pressButton(buttonIndex)
-    })
-
     // Function to simulate button press based on the button index
     function pressButton(buttonIndex) {
         const button = document.querySelector(

@@ -5,15 +5,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     // Wrapper for invoking IPC methods from the renderer
     invoke: (channel: string, data?: any) => ipcRenderer.invoke(channel, data),
 
-    // Listener for global hotkey press events
-    onGlobalHotkeyPress: (
-        callback: (event: any, buttonIndex: number) => void
-    ) => {
-        ipcRenderer.on('globalHotkeyPress', (event, buttonIndex) =>
-            callback(event, buttonIndex)
-        )
-    },
-
     onBrightness: (callback: (event: any, brightness: number) => void) => {
         ipcRenderer.on('brightness', (event, brightness) =>
             callback(event, brightness)

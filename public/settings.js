@@ -10,8 +10,6 @@ window.electronAPI.getSettings().then((settings) => {
     document.getElementById('alwaysOnTop').checked =
         settings.alwaysOnTop || false
     document.getElementById('movable').checked = settings.movable || false
-    document.getElementById('enableHotKeys').checked =
-        settings.enableHotKeys || false
 })
 
 // Handle form submission and save the updated settings
@@ -29,7 +27,6 @@ document.getElementById('settingsForm').addEventListener('submit', (event) => {
         bitmapSize: parseInt(document.getElementById('bitmapSize').value, 10),
         alwaysOnTop: document.getElementById('alwaysOnTop').checked,
         movable: document.getElementById('movable').checked,
-        enableHotKeys: document.getElementById('enableHotKeys').checked,
     }
 
     // Save the new settings using Electron API

@@ -8,7 +8,6 @@ export const defaultSettings = {
     bitmapSize: 72, // Default bitmap size
     alwaysOnTop: true, // Default always on top setting
     movable: false, // Default setting for whether the window is movable
-    enableHotKeys: false, //Default setting for enabling hotkeys
 }
 
 export type SettingsType = typeof defaultSettings

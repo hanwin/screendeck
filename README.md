@@ -5,7 +5,6 @@ ScreenDeck is a virtual on-screen stream deck for Bitfocus Companion, built with
 ## Features
 
 -   **Customizable Keypad Layout**: Configure the total number of buttons and number per row.
--   **Global Hotkeys**: Assign global hotkeys to buttons, enabling control even when the ScreenDeck window is not in focus.
 -   **Flexible Connectivity**: Easily set the IP and port for connecting to Bitfocus Companion through the settings menu.
 -   **Responsive UI**: Designed with a clean, modern interface that adjusts to your screen setup.
 
@@ -22,7 +21,7 @@ ScreenDeck is a virtual on-screen stream deck for Bitfocus Companion, built with
     yarn start
     ```
 
-    Configure Your Settings: Open the settings window to set up the Companion IP, port, and keypad layout. Enable global hotkeys if desired.
+    Configure Your Settings: Open the settings window to set up the Companion IP, port, and keypad layout.
     Connect to Bitfocus Companion: Once configured, ScreenDeck will connect to your Companion setup and allow you to control your configured buttons.
     Assign Commands: Use Bitfocus Companion to map specific commands or actions to each button on the ScreenDeck interface.
 
