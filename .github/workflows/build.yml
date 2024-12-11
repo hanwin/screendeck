@@ -1,6 +1,6 @@
 name: Build
 
-on: [push, workflow_dispatch]
+on: [workflow_dispatch]
 
 jobs:
     build_desktop:
@@ -8,39 +8,18 @@ jobs:
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
-                os: [windows-latest, macos-latest]
+                os: [windows-latest, macos-latest, ubuntu-latest]
         steps:
             - uses: actions/checkout@v1
             - name: Setup Node.js
               uses: actions/setup-node@v1
               with:
-                  node-version: 18
+                  node-version: 20
             - name: Install dependencies
-              run: npm i
+              run: yarn
             - name: Build
               uses: samuelmeuli/action-electron-builder@v1.6.0
               with:
                   github_token: ${{ secrets.github_token }}
                   release: true
                   skip_build: true
-##    - name: Get current version
-##      uses: Saionaro/extract-package-version@v1.0.6
-##      id: package-version
-##    - name: Upload Artifact
-##      uses: actions/upload-artifact@v2
-##      if: matrix.os == 'ubuntu-latest'
-##      with:
-##        name: 'screendeck-${{ steps.package-version.outputs.version }}-Linux'
-##        path: 'release/screendeck-${{ steps.package-version.outputs.version }}.AppImage'
-##    - name: Upload Artifact
-##      uses: actions/upload-artifact@v2
-##      if: matrix.os == 'macos-latest'
-##      with:
-##        name: 'screendeck-${{ steps.package-version.outputs.version }}-MacOS'
-##        path: 'release/screendeck-${{ steps.package-version.outputs.version }}.dmg'
-##    - name: Upload Artifact
-##      uses: actions/upload-artifact@v2
-##      if: matrix.os == 'windows-latest'
-##      with:
-##        name: 'screendeck-${{ steps.package-version.outputs.version }}-Windows'
-##        path: 'release/screendeck Setup ${{ steps.package-version.outputs.version }}.exe'

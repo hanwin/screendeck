@@ -39,7 +39,6 @@
     },
     "devDependencies": {
         "electron": "^25.0.0",
-        "@types/electron": "^23.0.0",
         "@types/node": "^18.0.0",
         "concurrently": "^8.0.0",
         "electron-builder": "^24.0.0",
