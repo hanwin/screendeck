@@ -43,7 +43,7 @@ export function createSatellite(notificationShow: boolean = true) {
         bitmapSize
     )
 
-	updateTrayMenu()
+    updateTrayMenu()
 
     global.satellite.on('connected', () => {
         if (notificationShow) {
@@ -53,10 +53,10 @@ export function createSatellite(notificationShow: boolean = true) {
             )
         }
         global.mainWindow?.show() //show the window when satellite is connected
-		//wait 50ms and update tray menu
-		setTimeout(() => {
-			updateTrayMenu()
-		}, 50)
+        //wait 50ms and update tray menu
+        setTimeout(() => {
+            updateTrayMenu()
+        }, 50)
     })
 
     global.satellite.on('keyEvent', (keyEvent) => {

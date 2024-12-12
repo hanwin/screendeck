@@ -4,9 +4,9 @@ ScreenDeck is a virtual on-screen stream deck for Bitfocus Companion, built with
 
 ## Features
 
--   **Customizable Keypad Layout**: Configure the total number of buttons and number per row.
--   **Flexible Connectivity**: Easily set the IP and port for connecting to Bitfocus Companion through the settings menu.
--   **Responsive UI**: Designed with a clean, modern interface that adjusts to your screen setup.
+- **Customizable Keypad Layout**: Configure the total number of buttons and number per row.
+- **Flexible Connectivity**: Easily set the IP and port for connecting to Bitfocus Companion through the settings menu.
+- **Responsive UI**: Designed with a clean, modern interface that adjusts to your screen setup.
 
 ## How to Use ScreenDeck
 

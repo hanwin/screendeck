@@ -54,7 +54,7 @@ export function createMainWindow() {
 
     if (global.satellite?.isConnected) {
         global.mainWindow?.show()
-		updateTrayMenu()
+        updateTrayMenu()
     }
 
     global.mainWindow.on('blur', () => {

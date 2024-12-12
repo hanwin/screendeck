@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron'
 import Store from 'electron-store'
 import { defaultSettings } from './defaults' // Import default settings
-import { createMainWindow,  } from './mainWindow' // Import the createMainWindow function
+import { createMainWindow } from './mainWindow' // Import the createMainWindow function
 import { createSatellite, closeSatellite } from './satelliteFunctions'
 
 const store = new Store({ defaults: defaultSettings })
@@ -14,8 +14,8 @@ export function initializeIpcHandlers() {
         let keysPerRow = store.get('keysPerRow', 1)
         let bitmapSize = store.get('bitmapSize', 72)
 
-		global.mainWindow?.hide()
-		
+        global.mainWindow?.hide()
+
         createMainWindow()
 
         let companionIP = store.get('companionIP', '127.0.0.1')

@@ -26,7 +26,7 @@ export class Satellite extends EventEmitter {
     private socket: Socket | null
     private ping_interval: NodeJS.Timeout | null
 
-	public companionVersion: string | null
+    public companionVersion: string | null
     public apiVersion: string | null
 
     constructor(
@@ -56,7 +56,7 @@ export class Satellite extends EventEmitter {
         this.socket = null
         this.ping_interval = null
 
-		this.companionVersion = ''
+        this.companionVersion = ''
         this.apiVersion = ''
     }
 
@@ -67,9 +67,9 @@ export class Satellite extends EventEmitter {
     }
 
     public connect() {
-		this.companionVersion = ''
-		this.apiVersion = ''
-		
+        this.companionVersion = ''
+        this.apiVersion = ''
+
         this.socket = new net.Socket()
 
         this.socket.connect(this.port, this.ip, () => {})
@@ -246,10 +246,13 @@ export class Satellite extends EventEmitter {
                     for (let i = 1; i < params.length; i++) {
                         const [property, value] = params[i].split('=')
 
-						if (property.toUpperCase() === 'COMPANIONVERSION') {
-							this.companionVersion = value
-							console.log('Companion Version:', this.companionVersion)
-						}
+                        if (property.toUpperCase() === 'COMPANIONVERSION') {
+                            this.companionVersion = value
+                            console.log(
+                                'Companion Version:',
+                                this.companionVersion
+                            )
+                        }
 
                         if (property.toUpperCase() === 'APIVERSION') {
                             this.apiVersion = value
