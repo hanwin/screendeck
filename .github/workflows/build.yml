@@ -7,7 +7,7 @@ on:
 
 jobs:
     build_desktop:
-        name: Build Desktop on ${{ matrix.os }}
+        name: Build Desktop on ${{ matrix.os }}/${{ matrix.arch }}
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
