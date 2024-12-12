@@ -13,15 +13,15 @@ jobs:
             matrix:
                 os: [windows-latest, macos-latest, ubuntu-latest]
         steps:
-            - uses: actions/checkout@v1
+            - uses: actions/checkout@v3
             - name: Setup Node.js
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v3
               with:
                   node-version: 20
             - name: Install dependencies
               run: yarn install --production
-            - name: Build
+            - name: Build and Release
               uses: samuelmeuli/action-electron-builder@v1.6.0
               with:
-                  github_token: ${{ secrets.github_token }}
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
                   release: true
