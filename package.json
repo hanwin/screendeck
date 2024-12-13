@@ -27,7 +27,8 @@
                     "arch": [
                         "x64",
                         "arm64"
-                    ]
+                    ],
+					"blockMap": false
                 }
             ],
             "category": "public.app-category.utilities",
@@ -44,14 +45,15 @@
         "afterSign": "scripts/notarize.js",
         "win": {
             "target": "nsis",
-            "icon": "assets/tray-icon.png"
+            "icon": "assets/tray-icon.png",
+			"blockMap": false
         },
         "linux": {
             "target": "AppImage",
-            "icon": "assets/tray-icon.png"
+            "icon": "assets/tray-icon.png",
+			"blockMap": false
         },
-        "generateUpdatesFilesForAllChannels": false,
-        "blockMap": false
+        "generateUpdatesFilesForAllChannels": false
     },
     "dependencies": {
         "electron-store": "^8.0.0",
