@@ -35,7 +35,7 @@
             "extendInfo": {
                 "NSApplicationSupportsSecureRestorableState": true
             },
-            "identity": "Joseph Adams (R2PY2DC3A4)",
+            "identity": "Developer ID Application: Joseph Adams (R2PY2DC3A4)",
             "hardenedRuntime": true,
             "gatekeeperAssess": true,
             "entitlements": "entitlements.mac.plist",
