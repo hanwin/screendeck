@@ -34,8 +34,14 @@
             "icon": "assets/tray-icon.png",
             "extendInfo": {
                 "NSApplicationSupportsSecureRestorableState": true
-            }
+            },
+            "identity": "Developer ID Application: Joseph Adams (R2PY2DC3A4)",
+            "hardenedRuntime": true,
+            "gatekeeperAssess": true,
+            "entitlements": "entitlements.mac.plist",
+            "entitlementsInherit": "entitlements.mac.plist"
         },
+        "afterSign": "scripts/notarize.js",
         "win": {
             "target": "nsis",
             "icon": "assets/tray-icon.png"
@@ -43,17 +49,20 @@
         "linux": {
             "target": "AppImage",
             "icon": "assets/tray-icon.png"
-        }
+        },
+        "generateUpdatesFilesForAllChannels": false,
+        "blockMap": false
     },
     "dependencies": {
         "electron-store": "^8.0.0",
         "short-uuid": "^5.2.0"
     },
     "devDependencies": {
-        "electron": "^25.0.0",
         "@types/node": "^18.0.0",
         "concurrently": "^8.0.0",
+        "electron": "^25.0.0",
         "electron-builder": "^24.0.0",
+        "electron-notarize": "^1.2.2",
         "prettier": "^3.3.3",
         "ts-node": "^10.0.0",
         "typescript": "^5.0.0",
