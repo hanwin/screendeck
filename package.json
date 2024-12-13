@@ -33,7 +33,8 @@
             "category": "public.app-category.utilities",
             "icon": "assets/tray-icon.png",
             "extendInfo": {
-                "NSApplicationSupportsSecureRestorableState": true
+                "NSApplicationSupportsSecureRestorableState": true,
+				"electronTeamId": "R2PY2DC3A4"
             },
             "hardenedRuntime": true,
             "gatekeeperAssess": true,
