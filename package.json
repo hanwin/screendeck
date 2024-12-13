@@ -27,8 +27,7 @@
                     "arch": [
                         "x64",
                         "arm64"
-                    ],
-					"blockMap": false
+                    ]
                 }
             ],
             "category": "public.app-category.utilities",
@@ -45,13 +44,11 @@
         "afterSign": "scripts/notarize.js",
         "win": {
             "target": "nsis",
-            "icon": "assets/tray-icon.png",
-			"blockMap": false
+            "icon": "assets/tray-icon.png"
         },
         "linux": {
             "target": "AppImage",
-            "icon": "assets/tray-icon.png",
-			"blockMap": false
+            "icon": "assets/tray-icon.png"
         },
         "generateUpdatesFilesForAllChannels": false
     },
