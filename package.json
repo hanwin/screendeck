@@ -37,12 +37,14 @@
                 "NSApplicationSupportsSecureRestorableState": true,
 				"electronTeamId": "R2PY2DC3A4"
             },
+			"notarize": {
+				"teamId": "R2PY2DC3A4"
+			},
             "hardenedRuntime": true,
             "gatekeeperAssess": true,
             "entitlements": "entitlements.mac.plist",
             "entitlementsInherit": "entitlements.mac.plist"
         },
-        "afterSign": "scripts/notarize.js",
         "win": {
             "target": "nsis",
             "icon": "assets/tray-icon.png"
