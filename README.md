@@ -1,5 +1,8 @@
 # ScreenDeck
 
+<img src="assets/tray-icon.png" alt="Logo" width="200px" />
+
+
 ScreenDeck is a virtual on-screen stream deck for Bitfocus Companion, built with Electron and TypeScript. This application allows you to create a customizable keypad interface that can send button presses to Companion, enabling you to control various applications, and perform automated tasks, all from an easily accessible on-screen interface.
 
 ## Features
@@ -10,13 +13,13 @@ ScreenDeck is a virtual on-screen stream deck for Bitfocus Companion, built with
 
 ## How to Use ScreenDeck
 
-1. **Download and Install**: Download the latest release here.
+1. **Download and Install**: Download the latest release here: https://github.com/josephdadams/screendeck/releases
 
 1. **Run from Source**: Clone the repository and install dependencies using Yarn:
 
     ```bash
-    git clone [repository-url]
-    cd ScreenDeck
+    git clone https://github.com/josephdadams/screendeck
+    cd screendeck
     yarn
     yarn start
     ```
